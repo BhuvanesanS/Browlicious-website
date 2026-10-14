@@ -1,0 +1,8 @@
+{
+  "name": "Browlicious PMU Clinic & Academy",
+  "short_name": "Browlicious",
+  "icons": [{"src": "favicon.svg", "sizes": "any", "type": "image/svg+xml"}],
+  "theme_color": "#d85687",
+  "background_color": "#fff8fa",
+  "display": "standalone"
+}

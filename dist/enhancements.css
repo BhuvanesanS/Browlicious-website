@@ -1,0 +1,1 @@
+.guide-callout{padding:92px 0;background:var(--deep);color:#fff6f8}.guide-callout>div{display:flex;align-items:center;justify-content:space-between;gap:35px}.guide-callout .eyebrow{color:#f9aac5}.guide-callout .button{flex:0 0 auto}@media(max-width:650px){.guide-callout{padding:65px 0}.guide-callout>div{display:block}.guide-callout .button{margin-top:25px}}

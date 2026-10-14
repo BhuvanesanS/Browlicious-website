@@ -1,0 +1,4 @@
+/* The alternating treatment section contains its own shell, so it must not inherit the two-column section grid. */
+.service-page.service-page-alt{display:block}
+.service-page.service-page-alt .service-page-grid{width:min(1160px,calc(100% - 48px));margin:auto}
+@media(max-width:850px){.service-page.service-page-alt .service-page-grid{width:min(100% - 34px,1160px)}}
