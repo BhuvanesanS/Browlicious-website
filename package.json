@@ -4,6 +4,7 @@
   "private": true,
   "description": "Self-hosted, IP-restricted blog CMS for Browlicious.",
   "scripts": {
+    "build": "node -e \"require('node:fs').accessSync('dist/index.html')\"",
     "start": "node server.js",
     "dev": "node server.js"
   },
