@@ -49,7 +49,7 @@ const links = document.querySelector('.nav-links');
 if (menu && links) {
   if (!links.querySelector('[href="/blog"]')) {
     const journalLink = document.createElement('a');
-    journalLink.href = '/blog';
+    journalLink.href = '/blog/';
     journalLink.textContent = 'Journal';
     links.insertBefore(journalLink, links.firstElementChild);
   }
