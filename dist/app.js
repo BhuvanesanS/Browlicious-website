@@ -8,6 +8,11 @@ motionStyles.rel = 'stylesheet';
 motionStyles.href = 'motion.css';
 document.head.append(motionStyles);
 
+const effectsScript = document.createElement('script');
+effectsScript.src = 'effects.js';
+effectsScript.defer = true;
+document.head.append(effectsScript);
+
 const resourceStyles = document.createElement('link');
 resourceStyles.rel = 'stylesheet';
 resourceStyles.href = 'resources.css';
