@@ -3,6 +3,11 @@ pageStyles.rel = 'stylesheet';
 pageStyles.href = 'extra.css';
 document.head.append(pageStyles);
 
+const motionStyles = document.createElement('link');
+motionStyles.rel = 'stylesheet';
+motionStyles.href = 'motion.css';
+document.head.append(motionStyles);
+
 const resourceStyles = document.createElement('link');
 resourceStyles.rel = 'stylesheet';
 resourceStyles.href = 'resources.css';
@@ -67,6 +72,11 @@ if (menu && links) {
     links.classList.remove('open');
     menu.setAttribute('aria-expanded', 'false');
   }));
+
+  links.querySelectorAll('a').forEach((link) => {
+    const destination = new URL(link.href, window.location.origin).pathname;
+    if (destination === window.location.pathname || (destination === '/index.html' && window.location.pathname === '/')) link.classList.add('active');
+  });
 }
 
 if (window.location.pathname.endsWith('treatments.html')) {
