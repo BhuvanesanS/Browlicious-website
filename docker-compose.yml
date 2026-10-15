@@ -1,0 +1,14 @@
+services:
+  browlicious:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "127.0.0.1:8003:8003"
+    volumes:
+      - cms_data:/app/data
+      - cms_uploads:/app/uploads
+
+volumes:
+  cms_data:
+  cms_uploads:

@@ -47,6 +47,12 @@ document.head.append(manifest);
 const menu = document.querySelector('.menu-button');
 const links = document.querySelector('.nav-links');
 if (menu && links) {
+  if (!links.querySelector('[href="/blog"]')) {
+    const journalLink = document.createElement('a');
+    journalLink.href = '/blog';
+    journalLink.textContent = 'Journal';
+    links.insertBefore(journalLink, links.firstElementChild);
+  }
   if (!links.querySelector('[href="resources.html"]')) {
     const resourcesLink = document.createElement('a');
     resourcesLink.href = 'resources.html';

@@ -1,0 +1,13 @@
+{
+  "name": "browlicious-pmu-cms",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Self-hosted, IP-restricted blog CMS for Browlicious.",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

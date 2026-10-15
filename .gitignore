@@ -1,0 +1,6 @@
+.env
+data/cms.json
+data/cms.json.tmp
+uploads/*
+!uploads/.gitkeep
+node_modules/
