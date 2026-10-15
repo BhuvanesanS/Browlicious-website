@@ -1,0 +1,6 @@
+const grid = document.getElementById('post-grid');
+const safe = (value = '') => { const node = document.createElement('span'); node.textContent = value; return node.innerHTML; };
+const date = (value) => value ? new Intl.DateTimeFormat('en', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(value)) : 'Browlicious journal';
+function card(post) { return `<article class="post-card">${post.coverImage ? `<img src="${post.coverImage}" alt="${safe(post.coverAlt || post.title)}">` : ''}<div><p class="post-date">${date(post.publishedAt)}</p><h2><a href="/blog/${encodeURIComponent(post.slug)}">${safe(post.title)}</a></h2><p>${safe(post.excerpt || 'Discover Browlicious advice, treatment education and thoughtful PMU guidance.')}</p><a class="read-more" href="/blog/${encodeURIComponent(post.slug)}">Read article →</a></div></article>`; }
+async function loadJournal() { try { const response = await fetch('/api/cms?action=posts'); const data = await response.json(); if (!response.ok) throw new Error(); grid.innerHTML = data.posts.length ? data.posts.map(card).join('') : '<p class="empty">New journal articles will appear here soon.</p>'; } catch { grid.innerHTML = '<p class="empty">The journal is temporarily unavailable. Please try again shortly.</p>'; } }
+loadJournal();

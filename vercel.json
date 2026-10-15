@@ -4,6 +4,7 @@
   "framework": null,
   "rewrites": [
     { "source": "/blog", "destination": "/blog/index.html" },
+    { "source": "/blog/:slug", "destination": "/blog/post.html?slug=:slug" },
     { "source": "/admin", "destination": "/admin.html" }
   ]
 }

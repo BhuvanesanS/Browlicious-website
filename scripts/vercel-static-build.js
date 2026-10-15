@@ -3,16 +3,16 @@ const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
 const source = path.join(root, 'dist');
-const output = path.join(root, '.vercel', 'output');
-const staticOutput = path.join(output, 'static');
+const output = path.join(root, 'public');
+const adminStyles = path.join(root, 'cms', 'cms.css');
 
 async function build() {
   await fs.access(path.join(source, 'index.html'));
   await fs.rm(output, { recursive: true, force: true });
-  await fs.mkdir(staticOutput, { recursive: true });
-  await fs.cp(source, staticOutput, { recursive: true });
-  await fs.writeFile(path.join(output, 'config.json'), JSON.stringify({ version: 3 }, null, 2));
-  console.log('Created Vercel static output from dist/.');
+  await fs.mkdir(output, { recursive: true });
+  await fs.cp(source, output, { recursive: true });
+  await fs.copyFile(adminStyles, path.join(output, 'admin-cms.css'));
+  console.log('Created Vercel public assets from dist/.');
 }
 
 build().catch((error) => {
