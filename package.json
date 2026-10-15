@@ -4,7 +4,7 @@
   "private": true,
   "description": "Self-hosted, IP-restricted blog CMS for Browlicious.",
   "scripts": {
-    "build": "node -e \"require('node:fs').accessSync('dist/index.html')\"",
+    "build": "node scripts/vercel-static-build.js",
     "start": "node server.js",
     "dev": "node server.js"
   },
