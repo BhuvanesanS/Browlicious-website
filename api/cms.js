@@ -11,13 +11,23 @@ function send(res, status, data) {
   res.end(JSON.stringify(data));
 }
 
+function normalizeIp(value) {
+  const ip = String(value || '').trim();
+  // Some platforms represent an IPv4 address as an IPv6-mapped address.
+  // Treat both forms as the same approved network address.
+  return ip.replace(/^::ffff:/i, '');
+}
+
 function clientIp(req) {
   const forwarded = String(req.headers['x-forwarded-for'] || '');
-  return (forwarded.split(',')[0] || req.socket?.remoteAddress || 'unknown').trim();
+  return normalizeIp(forwarded.split(',')[0] || req.socket?.remoteAddress || 'unknown');
 }
 
 function canManage(req) {
-  const allowed = String(process.env.CMS_ALLOWED_IPS || '').split(',').map((ip) => ip.trim()).filter(Boolean);
+  const allowed = String(process.env.CMS_ALLOWED_IPS || '')
+    .split(',')
+    .map(normalizeIp)
+    .filter(Boolean);
   return allowed.includes(clientIp(req));
 }
 
