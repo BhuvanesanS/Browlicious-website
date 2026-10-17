@@ -6,3 +6,6 @@ uploads/*
 node_modules/
 .vercel/
 public/
+
+.vercel
+.env*
