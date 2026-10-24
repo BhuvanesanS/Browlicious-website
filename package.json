@@ -4,14 +4,21 @@
   "private": true,
   "description": "Self-hosted, IP-restricted blog CMS for Browlicious.",
   "scripts": {
-    "build": "node scripts/vercel-static-build.js",
+    "build": "vite build && node scripts/vercel-static-build.js",
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "vite",
+    "preview": "vite preview"
   },
   "engines": {
     "node": ">=20"
   },
   "dependencies": {
-    "@vercel/blob": "^2.8.2"
+    "@vercel/blob": "^2.8.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.4",
+    "vite": "^7.1.7"
   }
 }

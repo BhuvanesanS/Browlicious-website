@@ -6,6 +6,8 @@ uploads/*
 node_modules/
 .vercel/
 public/
+react-dist/
 
 .vercel
 .env*
+server-*.log

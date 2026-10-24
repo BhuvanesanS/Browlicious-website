@@ -5,6 +5,11 @@
   "rewrites": [
     { "source": "/blog", "destination": "/blog/index.html" },
     { "source": "/blog/:slug", "destination": "/blog/post.html?slug=:slug" },
-    { "source": "/admin", "destination": "/admin.html" }
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/services", "destination": "/index.html" },
+    { "source": "/academy", "destination": "/index.html" },
+    { "source": "/about", "destination": "/index.html" },
+    { "source": "/resources", "destination": "/index.html" },
+    { "source": "/contact", "destination": "/index.html" }
   ]
 }
