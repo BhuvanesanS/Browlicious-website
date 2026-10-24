@@ -1,0 +1,54 @@
+/* Journal index-only layout. Kept separate from the shared header styles. */
+.journal-notes {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: clamp(30px, 6vw, 88px);
+  align-items: start;
+  margin-top: 74px;
+  padding: 62px 0;
+  border-top: 1px solid #ecd7df;
+}
+
+.journal-notes h2 {
+  margin: 0;
+  color: #351f2e;
+  font: clamp(30px, 3.6vw, 52px)/1.02 Georgia, serif;
+}
+
+.journal-note-list { display: grid; gap: 12px; }
+.journal-note-list article {
+  display: grid;
+  grid-template-columns: minmax(150px, .7fr) 1.3fr;
+  gap: 18px;
+  padding: 18px 0;
+  border-bottom: 1px solid #ecd7df;
+}
+.journal-note-list strong { color: #351f2e; font: 700 14px Arial, sans-serif; }
+.journal-note-list span { color: #765d6b; font-size: 14px; line-height: 1.55; }
+
+.journal-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin: 0 0 90px;
+  padding: 36px 42px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #d85687, #bb3d6c);
+  box-shadow: 0 18px 36px rgba(216, 86, 135, .22);
+  color: #fff;
+}
+.journal-callout .eyebrow { margin: 0 0 10px; color: #ffe3ec; }
+.journal-callout h2 { margin: 0; color: #fff; font: clamp(25px, 3vw, 42px)/1.06 Georgia, serif; }
+.journal-callout .button { flex: none; border: 1px solid rgba(255,255,255,.6); background: #fff; color: #a72c5b; }
+.journal-callout .button:hover { background: #fff1f5; color: #842047; }
+
+@media (max-width: 850px) {
+  .journal-notes { grid-template-columns: 1fr; gap: 30px; }
+  .journal-callout { align-items: flex-start; flex-direction: column; }
+}
+
+@media (max-width: 540px) {
+  .journal-note-list article { grid-template-columns: 1fr; gap: 4px; }
+  .journal-callout { margin-bottom: 55px; padding: 30px 24px; border-radius: 16px; }
+}
