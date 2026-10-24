@@ -10,26 +10,25 @@ This is a self-hosted CMS written for Browlicious. It does not rely on WordPress
 4. Open `http://127.0.0.1:8003/admin` to create articles.
 5. Public articles appear at `http://127.0.0.1:8003/blog` after they are published.
 
-## No-login protection
+## Password-protected CMS access
 
-There is deliberately no password screen. Instead, every CMS write route is restricted to exact IP addresses in `CMS_ALLOWED_IPS`.
+The CMS uses a password login and a signed, HTTP-only session cookie. This works from changing home, mobile, or office networks.
 
-- Keep only `127.0.0.1,::1` for local-only administration.
-- For an office with a fixed public IP, add that address: `CMS_ALLOWED_IPS=127.0.0.1,::1,203.0.113.25`.
-- Do not use `0.0.0.0`, a range, or a dynamic IP address.
-- Do not turn on `TRUST_PROXY=true` unless Nginx is the only service that can reach the Node app. The Docker configuration binds Node to `127.0.0.1` to enforce this.
+Set both secrets before deploying:
 
-If the office network has a changing IP address, this passwordless design is not suitable. Ask for a passwordless email-link option instead; never remove all access controls.
+- `CMS_ADMIN_PASSWORD`: a long, unique publishing password.
+- `CMS_AUTH_SECRET`: a random secret of at least 32 characters used only to sign sessions.
+
+The session is valid for 12 hours, is `HttpOnly`, `Secure` in production, and `SameSite=Strict`. `CMS_ALLOWED_IPS` is retained only as a local/legacy fallback when both password variables are absent.
 
 ## Vercel deployment
 
-For the Vercel production site, add the approved address in **Project Settings → Environment Variables**:
+For the Vercel production site, add these environment variables in **Project Settings → Environment Variables**:
 
-- Name: `CMS_ALLOWED_IPS`
-- Value: a comma-separated list of approved public addresses, for example `122.183.51.220`
-- Environments: **Production** (and Preview only if the editor must be used on preview deployments)
+- `CMS_ADMIN_PASSWORD`: your chosen long publishing password.
+- `CMS_AUTH_SECRET`: a random 32+ character signing secret.
 
-Redeploy after saving the variable. Vercel provides the visitor address through `X-Forwarded-For`; the CMS normalizes IPv4-mapped IPv6 values before checking the exact allowlist. Keep the variable private to the project settings rather than committing it to the repository.
+Set both for **Production** (and Preview only if you use the editor on preview deployments), then redeploy. Keep both values private; never commit them to the repository.
 
 ## VPS deployment
 

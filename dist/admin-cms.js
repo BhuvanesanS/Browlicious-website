@@ -9,6 +9,9 @@ async function request(action, options = {}) {
   if (!response.ok) throw new Error(data.error || 'Request failed.');
   return data;
 }
+function setLoginMessage(message, tone = '') { $('login-status').textContent = message; $('login-status').className = `form-status ${tone}`; }
+function showLogin() { $('access-message').hidden = true; $('login-panel').hidden = false; $('app').hidden = true; $('logout').hidden = true; $('cms-password').focus(); }
+async function showApplication() { $('access-message').remove(); $('login-panel').hidden = true; $('app').hidden = false; $('logout').hidden = false; await loadPosts(); }
 function escapeHtml(value = '') { const node = document.createElement('span'); node.textContent = value; return node.innerHTML; }
 function setMessage(message, tone = '') { $('form-status').textContent = message; $('form-status').className = `form-status ${tone}`; }
 function showCover(url, alt = '') { $('cover-preview').innerHTML = url ? `<img src="${url}" alt="${escapeHtml(alt || 'Cover image preview')}">` : ''; }
@@ -32,6 +35,37 @@ $('delete-modal').addEventListener('click', (event) => { if (event.target === $(
 $('delete-confirm').addEventListener('click', async () => { const id = $('post-id').value; if (!id) return setDeleteDialog(false); $('delete-confirm').disabled = true; $('delete-confirm').textContent = 'Moving article…'; try { await request(`post&id=${encodeURIComponent(id)}`, { method: 'DELETE' }); setDeleteDialog(false); await loadPosts(); resetForm(); setMessage('Article moved to recycle bin. You can restore it at any time.', 'success'); } catch (error) { setMessage(error.message, 'error'); } finally { $('delete-confirm').disabled = false; $('delete-confirm').textContent = 'Move to recycle bin'; } });
 $('restore-post').addEventListener('click', async () => { const id = $('post-id').value; if (!id) return; try { const result = await request(`restore&id=${encodeURIComponent(id)}`, { method: 'POST' }); await loadPosts(); state.filter = 'active'; $('post-filter').value = 'active'; selectPost(result.post); setMessage('Article restored.', 'success'); } catch (error) { setMessage(error.message, 'error'); } });
 $('preview').addEventListener('click', () => { const slug = $('slug').value; if (!slug) return setMessage('Save the article first to preview it.', 'error'); window.open(`/blog/${encodeURIComponent(slug)}`, '_blank', 'noopener'); });
+$('login-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const submit = $('login-submit');
+  submit.disabled = true;
+  setLoginMessage('Signing in…');
+  try {
+    await request('login', { method: 'POST', body: JSON.stringify({ password: $('cms-password').value }) });
+    $('cms-password').value = '';
+    await showApplication();
+  } catch (error) {
+    setLoginMessage(error.message, 'error');
+  } finally {
+    submit.disabled = false;
+  }
+});
+$('logout').addEventListener('click', async () => {
+  try { await request('logout', { method: 'POST' }); } finally { window.location.reload(); }
+});
 
 document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !$('delete-modal').hidden) setDeleteDialog(false); });
-(async () => { try { const access = await request('status'); if (!access.allowed) { $('access-message').innerHTML = `<strong>Publishing is protected.</strong><br>Your current network address is <code>${escapeHtml(access.yourIp)}</code>. Add this address to the Vercel environment variable <code>CMS_ALLOWED_IPS</code>, then redeploy to activate this editor.`; return; } $('access-message').remove(); $('app').hidden = false; await loadPosts(); } catch { $('access-message').textContent = 'Unable to connect to the publishing service.'; } })();
+(async () => {
+  try {
+    const access = await request('status');
+    if (access.allowed) return showApplication();
+    if (access.authMode === 'password') return showLogin();
+    if (access.authMode === 'misconfigured') {
+      $('access-message').textContent = 'CMS sign-in is not configured completely. Add both CMS_ADMIN_PASSWORD and CMS_AUTH_SECRET in Vercel, then redeploy.';
+      return;
+    }
+    $('access-message').innerHTML = `<strong>Publishing is protected.</strong><br>Your current network address is <code>${escapeHtml(access.yourIp)}</code>. Add this address to the Vercel environment variable <code>CMS_ALLOWED_IPS</code>, then redeploy to activate this editor.`;
+  } catch {
+    $('access-message').textContent = 'Unable to connect to the publishing service.';
+  }
+})();

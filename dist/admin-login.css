@@ -1,0 +1,8 @@
+.admin-header-actions { display: flex; align-items: center; gap: 20px; }
+.login-panel { width: min(520px, 100%); margin: 64px auto; padding: 38px; border: 1px solid var(--line); border-radius: 24px; background: rgba(255, 255, 255, .96); box-shadow: 0 24px 65px rgba(91, 26, 54, .12); }
+.login-panel h1 { margin: 9px 0 14px; font: 42px/1.05 Georgia, serif; }
+.login-panel > p:not(.eyebrow) { margin: 0 0 24px; color: var(--muted); }
+.login-panel label { display: block; font-size: 14px; font-weight: 700; }
+.login-panel input { display: block; width: 100%; margin: 7px 0 18px; padding: 12px; border: 1px solid #dcb9c9; border-radius: 5px; color: var(--ink); font: 16px Arial, sans-serif; }
+.login-panel .button:disabled { cursor: wait; opacity: .7; transform: none; }
+@media (max-width: 520px) { .admin-header-actions { gap: 12px; font-size: 14px; } .login-panel { margin: 28px auto; padding: 26px 20px; } .login-panel h1 { font-size: 34px; } }

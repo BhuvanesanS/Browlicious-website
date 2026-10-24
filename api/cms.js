@@ -4,6 +4,8 @@ const { get, put } = require('@vercel/blob');
 const DATABASE_PATH = 'browlicious-cms/posts.json';
 const MAX_IMAGE_BYTES = 4 * 1024 * 1024;
 const SAFE_IMAGE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
+const SESSION_COOKIE = 'browlicious_cms_session';
+const SESSION_TTL_SECONDS = 12 * 60 * 60;
 
 function send(res, status, data) {
   res.status(status).setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -23,12 +25,67 @@ function clientIp(req) {
   return normalizeIp(forwarded.split(',')[0] || req.socket?.remoteAddress || 'unknown');
 }
 
-function canManage(req) {
+function hasPasswordAuth() {
+  return Boolean(process.env.CMS_ADMIN_PASSWORD && process.env.CMS_AUTH_SECRET);
+}
+
+function hasPartialPasswordAuth() {
+  return Boolean(process.env.CMS_ADMIN_PASSWORD || process.env.CMS_AUTH_SECRET) && !hasPasswordAuth();
+}
+
+function readCookie(req, name) {
+  const cookies = String(req.headers.cookie || '').split(';');
+  const prefix = `${name}=`;
+  const match = cookies.map((item) => item.trim()).find((item) => item.startsWith(prefix));
+  return match ? decodeURIComponent(match.slice(prefix.length)) : '';
+}
+
+function signSession(expiresAt) {
+  return crypto
+    .createHmac('sha256', process.env.CMS_AUTH_SECRET)
+    .update(`browlicious-cms:${expiresAt}`)
+    .digest('base64url');
+}
+
+function timingSafeMatch(actual, expected) {
+  const actualHash = crypto.createHash('sha256').update(String(actual || '')).digest();
+  const expectedHash = crypto.createHash('sha256').update(String(expected || '')).digest();
+  return crypto.timingSafeEqual(actualHash, expectedHash);
+}
+
+function hasValidSession(req) {
+  if (!hasPasswordAuth()) return false;
+  const [expiry, signature] = readCookie(req, SESSION_COOKIE).split('.');
+  const expiresAt = Number(expiry);
+  if (!Number.isSafeInteger(expiresAt) || expiresAt <= Date.now() || !signature) return false;
+  return timingSafeMatch(signature, signSession(expiresAt));
+}
+
+function setSessionCookie(req, res, expiresAt) {
+  const isSecure = process.env.VERCEL === '1' || String(req.headers['x-forwarded-proto'] || '').split(',')[0] === 'https';
+  const value = `${expiresAt}.${signSession(expiresAt)}`;
+  res.setHeader('Set-Cookie', `${SESSION_COOKIE}=${encodeURIComponent(value)}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${SESSION_TTL_SECONDS}${isSecure ? '; Secure' : ''}`);
+}
+
+function clearSessionCookie(req, res) {
+  const isSecure = process.env.VERCEL === '1' || String(req.headers['x-forwarded-proto'] || '').split(',')[0] === 'https';
+  res.setHeader('Set-Cookie', `${SESSION_COOKIE}=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0${isSecure ? '; Secure' : ''}`);
+}
+
+function canManageByIp(req) {
   const allowed = String(process.env.CMS_ALLOWED_IPS || '')
     .split(',')
     .map(normalizeIp)
     .filter(Boolean);
   return allowed.includes(clientIp(req));
+}
+
+function canManage(req) {
+  if (hasPasswordAuth()) return hasValidSession(req);
+  // Do not silently fall back to an IP allow-list after a partially configured
+  // password login. That mistake could accidentally expose a publishing path.
+  if (hasPartialPasswordAuth()) return false;
+  return canManageByIp(req);
 }
 
 function requireManager(req, res) {
@@ -96,7 +153,6 @@ function preparePost(input, existing = {}) {
 }
 
 async function readBody(req) {
-  if (req.body && typeof req.body === 'object') return req.body;
   let raw = '';
   for await (const chunk of req) {
     raw += chunk;
@@ -124,7 +180,29 @@ async function serveMedia(req, res, pathname) {
 module.exports = async function handler(req, res) {
   try {
     const action = String(req.query?.action || 'posts');
-    if (action === 'status') return send(res, 200, { allowed: canManage(req), yourIp: clientIp(req) });
+    if (action === 'status') {
+      return send(res, 200, {
+        allowed: canManage(req),
+        authMode: hasPasswordAuth() ? 'password' : hasPartialPasswordAuth() ? 'misconfigured' : 'ip',
+        yourIp: hasPasswordAuth() || hasPartialPasswordAuth() ? undefined : clientIp(req),
+      });
+    }
+    if (action === 'login' && req.method === 'POST') {
+      if (!hasPasswordAuth()) {
+        return send(res, 503, { error: 'CMS password sign-in is not configured yet.' });
+      }
+      const input = await readBody(req);
+      if (!timingSafeMatch(input.password, process.env.CMS_ADMIN_PASSWORD)) {
+        return send(res, 401, { error: 'The password is incorrect.' });
+      }
+      const expiresAt = Date.now() + SESSION_TTL_SECONDS * 1000;
+      setSessionCookie(req, res, expiresAt);
+      return send(res, 200, { allowed: true, expiresAt: new Date(expiresAt).toISOString() });
+    }
+    if (action === 'logout' && req.method === 'POST') {
+      clearSessionCookie(req, res);
+      return send(res, 200, { allowed: false });
+    }
     if (action === 'media' && req.method === 'GET') return serveMedia(req, res, String(req.query?.pathname || ''));
 
     if (req.method === 'GET' && action === 'posts') {
