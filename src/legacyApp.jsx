@@ -10,6 +10,7 @@ import galleryFiveImg from './assets/gallery-5.jpg'
 import heroImg from './assets/hero.jpg'
 import lipBlushImg from './assets/lip-blush.jpg'
 import pmuServiceImg from './assets/pmu-service.jpg'
+import pmuClinicLogo from './assets/pmu-clinic-logo.png'
 import testimonialEyelinerBeforeImg from './assets/testimonial-eyeliner-before.jpg'
 import testimonialEyelinerCloseupImg from './assets/testimonial-eyeliner-closeup.jpg'
 import testimonialBrowsNaturalImg from './assets/testimonial-brows-natural.jpg'
@@ -19,6 +20,7 @@ import testimonialLipsRestImg from './assets/testimonial-lips-rest.jpg'
 import testimonialLipsResultImg from './assets/testimonial-lips-result.jpg'
 import './legacy-overrides.css'
 import './testimonial.css'
+import './redesign.css'
 
 const services = [
   ['Brows', 'Microblading', 'Fine hair-like strokes for a soft, feathery brow finish.', browsImg],
@@ -46,7 +48,7 @@ const whatsapp = 'https://wa.me/919710331111'
 function go(path) { window.history.pushState({}, '', path); window.dispatchEvent(new Event('popstate')); window.scrollTo({ top: 0, behavior: 'smooth' }) }
 function usePath() { const [path, setPath] = useState(window.location.pathname); useEffect(() => { const update = () => setPath(window.location.pathname); window.addEventListener('popstate', update); return () => window.removeEventListener('popstate', update) }, []); return path }
 function Link({ to, className = '', children, onClick }) { return <a className={className} href={to} onClick={(event) => { event.preventDefault(); onClick?.(); go(to) }}>{children}</a> }
-function Brand() { return <Link to="/" className="brand"><span className="brand-mark">B</span><span>Browlicious<small>PMU Clinic & Academy</small></span></Link> }
+function Brand() { return <Link to="/" className="brand"><img className="brand-logo" src={pmuClinicLogo} alt="PMU and Aesthetic Clinic logo" /><span className="brand-copy"><b>Browlicious</b><small>PMU Clinic & Academy · Chennai</small></span></Link> }
 
 function Header() {
   const path = usePath(); const [open, setOpen] = useState(false)
@@ -57,7 +59,7 @@ function Footer() { return <><footer className="footer"><div className="shell fo
 
 function Cta() { return <section className="page-cta"><div className="shell page-cta-inner"><div><p className="eyebrow"><span /> Your next step</p><h2>Bring your questions.<br /><i>We’ll talk them through.</i></h2></div><Link to="/contact" className="button">Book a consultation <span>↗</span></Link></div></section> }
 
-function SiteLoader({ active }) { return <div className={`site-loader${active ? ' is-active' : ''}`} aria-hidden={!active}><div className="site-loader-mark">B</div><div className="site-loader-copy"><b>Browlicious</b><span>PMU Clinic & Academy</span></div><div className="site-loader-line"><i /></div></div> }
+function SiteLoader({ active }) { return <div className={`site-loader${active ? ' is-active' : ''}`} aria-hidden={!active}><div className="site-loader-mark"><img src={pmuClinicLogo} alt="" /></div><div className="site-loader-copy"><b>Browlicious</b><span>PMU Clinic & Academy</span></div><div className="site-loader-line"><i /></div></div> }
 
 function EnquiryPopup({ open, onClose }) {
   if (!open) return null
@@ -71,8 +73,8 @@ function EnquiryPopup({ open, onClose }) {
   return <div className="enquiry-overlay" role="presentation"><section className="enquiry-popup" role="dialog" aria-modal="true" aria-labelledby="enquiry-popup-title"><button className="enquiry-close" type="button" aria-label="Close enquiry form" onClick={onClose}>×</button><p className="eyebrow"><span /> A little more personal</p><h2 id="enquiry-popup-title">Let’s find the right<br /><i>next step for you.</i></h2><p className="popup-copy">Share a few details and we’ll prepare a WhatsApp enquiry for you to review and send.</p><form onSubmit={submit}><div className="two-fields"><label>Your name<input name="name" required placeholder="How should we call you?" /></label><label>Mobile number<input name="mobile" required type="tel" placeholder="Include country code" /></label></div><label>What can we help with?<select name="interest" required defaultValue=""><option value="" disabled>Select a service or course</option>{services.map(([, name]) => <option key={name}>{name}</option>)}<option>PMU Academy</option></select></label><label>Tell us a little more<textarea name="message" rows="2" placeholder="Your goals or preferred date" /></label><button className="button" type="submit">Continue on WhatsApp <span>↗</span></button><small className="whatsapp-note">Your details are included only in the WhatsApp message you choose to send.</small></form></section></div>
 }
 
-function Home() { return <main>
-  <section className="hero"><div className="hero-orb orb-one" /><div className="hero-orb orb-two" /><div className="shell hero-grid"><div className="hero-copy reveal is-visible"><p className="eyebrow"><span /> Permanent makeup, made personal</p><h1>Effortless polish.<br /><i>Still completely you.</i></h1><p>Specialist brows, lips, eyes, scalp and skin restoration, designed around your features and applied with clinical care.</p><div className="hero-actions"><Link to="/contact" className="button">Book a consultation <span>↗</span></Link><Link to="/services" className="text-link">Explore our services <span>→</span></Link></div><div className="hero-notes"><span>Mapped to your features</span><span>Soft, natural healing</span></div></div><div className="hero-visual tilt-card reveal is-visible"><img src={heroImg} alt="Permanent makeup artist at work" /><div className="hero-stamp">Beauty with<br /><b>intention</b></div><div className="hero-float">A softer kind<br />of <em>confidence.</em></div></div></div></section>
+function Home() { return <main className="home-page">
+  <section className="hero"><div className="hero-orb orb-one" /><div className="hero-orb orb-two" /><div className="shell hero-grid"><div className="hero-copy reveal is-visible"><p className="eyebrow"><span /> Chennai’s PMU & aesthetic studio</p><h1>Beauty, but<br /><i>on your terms.</i></h1><p>Specialist brows, lips, eyes, scalp and skin restoration, designed around your features and applied with clinical care.</p><div className="hero-actions"><Link to="/contact" className="button">Book a consultation <span>↗</span></Link><Link to="/services" className="text-link">Explore our services <span>→</span></Link></div><div className="hero-notes"><span>Mapped to your features</span><span>Soft, natural healing</span></div><div className="hero-reassurance"><span>✦</span><p><b>Consultation-led care</b>Every treatment starts with a calm conversation and a plan that feels right for you.</p></div></div><div className="hero-visual tilt-card reveal is-visible"><img src={heroImg} alt="Permanent makeup artist at work" /><div className="hero-stamp">Designed for<br /><b>your face</b></div><div className="hero-float">A softer kind<br />of <em>confidence.</em></div></div></div></section>
   <section className="promise"><div className="shell promise-grid"><div><b>5,000+</b><span>clients cared for</span></div><div><b>5.0/5</b><span>client rating</span></div><div><b>13</b><span>specialist services</span></div><div><b>1:1</b><span>consultation first</span></div></div></section>
   <section className="shell intro"><div className="intro-art reveal is-visible"><img src={aboutImg} alt="Browlicious treatment" /><span className="arch arch-one" /><span className="arch arch-two" /></div><div className="intro-copy reveal is-visible"><p className="eyebrow"><span /> More than a treatment</p><h2>Your face is not a template.<br /><i>Neither is our work.</i></h2><p>Every design starts with a conversation about your goals, skin and lifestyle. We build gentle layers for a result that feels balanced, healed and unmistakably yours.</p><ul className="check-list"><li>Custom-blended pigments for your undertone</li><li>Single-use needles and a sterile treatment set-up</li><li>Beauty and paramedical PMU under one roof</li></ul><Link to="/about" className="text-link">Meet the Browlicious approach <span>→</span></Link></div></section>
   <FeaturedServices />
