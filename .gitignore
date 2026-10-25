@@ -5,7 +5,7 @@ uploads/*
 !uploads/.gitkeep
 node_modules/
 .vercel/
-public/
+/public/
 react-dist/
 
 .vercel
