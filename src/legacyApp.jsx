@@ -80,10 +80,13 @@ function EnquiryPopup({ open, onClose }) {
 
 function Home() {
   return <main className="home-page">
-    <section className="editorial-hero">
+    <section className="editorial-hero immersive-hero">
+      <div className="hero-watermark" aria-hidden="true">Browlicious</div>
+      <div className="hero-sculpture" aria-hidden="true"><span /><span /><span /></div>
       <div className="editorial-hero-photo"><img src={testimonialBrowsNaturalImg} alt="Browlicious client with softly defined brows" fetchPriority="high" /></div>
+      <div className="hero-detail-card"><img src={testimonialBrowsResultImg} alt="" /><span><small>The signature approach</small>Precision.<br /><i>With a personal touch.</i></span></div>
       <div className="shell editorial-hero-inner">
-        <div className="editorial-hero-copy"><p className="eyebrow">Browlicious · Clinic & Academy · Chennai</p><h1>The art of<br />feeling <i>you.</i></h1><p>Considered permanent makeup.<br />Personal artistry. A little more confidence.</p><Link to="/services" className="button">Discover our treatments <span>↗</span></Link></div>
+        <div className="editorial-hero-copy"><p className="eyebrow"><span className="hero-status-dot" /> Clinic & Academy · Chennai</p><h1>The art of<br />feeling <i>you.</i></h1><p>Considered permanent makeup.<br />Personal artistry. A little more confidence.</p><div className="hero-actions"><Link to="/services" className="button">Discover our treatments <span>↗</span></Link><Link to="/contact" className="text-link">Let’s talk <span>↗</span></Link></div><div className="hero-signature"><span aria-hidden="true">✧</span> Individually mapped. Beautifully you.</div></div>
         <div className="hero-edition"><span>Beauty, individually considered.</span><span>01 — The clinic</span></div>
       </div>
     </section>

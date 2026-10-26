@@ -15,7 +15,7 @@ const UPLOAD_DIR = path.resolve(process.env.CMS_UPLOAD_DIR || path.join(ROOT, 'u
 const DB_FILE = path.join(DATA_DIR, 'cms.json');
 const PORT = Number(process.env.PORT || 8003);
 const APP_URL = (process.env.APP_URL || `http://127.0.0.1:${PORT}`).replace(/\/$/, '');
-const CMS_STYLE_VERSION = '20261025-editorial';
+const CMS_STYLE_VERSION = '20261025-atelier-2';
 const TRUST_PROXY = process.env.TRUST_PROXY === 'true';
 const ALLOWED_IPS = new Set((process.env.CMS_ALLOWED_IPS || '127.0.0.1,::1')
   .split(',').map(normalizeIp).filter(Boolean));

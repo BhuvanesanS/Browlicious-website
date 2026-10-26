@@ -8,7 +8,7 @@ const output = path.join(root, 'public');
 const adminStyles = path.join(root, 'cms', 'cms.css');
 const journalStyles = path.join(root, 'cms', 'journal.css');
 const journalEnhancements = path.join(root, 'cms', 'journal-enhancements.css');
-const JOURNAL_STYLE_VERSION = '20261025-editorial';
+const JOURNAL_STYLE_VERSION = '20261025-atelier-2';
 const journalHeader = `<div class="journal-announcement">BROWLICIOUS PMU CLINIC &amp; ACADEMY</div><header class="journal-header"><nav class="journal-nav" aria-label="Primary navigation"><a class="journal-brand" href="/"><span class="journal-brand-mark">B</span><span>Browlicious<small>PMU Clinic &amp; Academy</small></span></a><div class="journal-links"><a class="active" href="/blog">Journal</a><a href="/">Home</a><a href="/services">Services</a><a href="/testimonials">Testimonials</a><a href="/academy">Academy</a><a href="/about">About</a><a href="/resources">Resources</a><a href="/contact">Contact</a></div><a class="journal-cta" href="/contact">Book a consultation <span>↗</span></a></nav></header>`;
 
 async function updateJournalTemplate(filename) {
@@ -31,6 +31,7 @@ async function build() {
   await fs.cp(source, output, { recursive: true });
   await fs.cp(reactSource, output, { recursive: true, force: true });
   await fs.copyFile(adminStyles, path.join(output, 'admin-cms.css'));
+  await fs.copyFile(path.join(root, 'cms', 'experience.css'), path.join(output, 'cms-experience.css'));
   await fs.copyFile(journalStyles, path.join(output, 'journal.css'));
   await fs.copyFile(journalEnhancements, path.join(output, 'journal-enhancements.css'));
   await Promise.all([updateJournalTemplate('index.html'), updateJournalTemplate('post.html')]);

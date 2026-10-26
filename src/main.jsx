@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client'
 import './styles.css'
 import { LegacyApp } from './legacyApp'
 import './redesign.css'
+import './experience.css'
+import { VisualExperience } from './VisualExperience'
 import aboutImg from './assets/about.jpg'
 import academyImg from './assets/academy-team.png'
 import browTreatmentImg from './assets/brow-treatment.jpg'
@@ -54,4 +56,4 @@ function ConsultBand({ onBook, label = 'Book a consultation' }) { return <sectio
 function Footer({ onBook }) { return <footer><div className="shell footer-top"><div><Logo /><p>Permanent makeup designed with precision, patience and a very soft touch.</p></div><div className="footer-links">{navItems.slice(1).map(([to, label]) => <button onClick={() => go(to)} key={to}>{label}</button>)}</div><div><p>Begin with a conversation.</p><button className="text-button" onClick={onBook}>Book consultation <span>↗</span></button></div></div><div className="shell footer-bottom">© {new Date().getFullYear()} Browlicious PMU Clinic and Academy. All rights reserved.</div></footer> }
 function App() { const [book, setBook] = useState(false); const path = usePath(); const page = path === '/services' ? <Services onBook={() => setBook(true)} /> : path === '/academy' ? <Academy onBook={() => setBook(true)} /> : path === '/about' ? <About /> : path === '/contact' ? <Contact onBook={() => setBook(true)} /> : <Home onBook={() => setBook(true)} />; return <><Header onBook={() => setBook(true)} />{page}<Footer onBook={() => setBook(true)} /><ConsultationModal open={book} onClose={() => setBook(false)} /></> }
 
-createRoot(document.getElementById('root')).render(<LegacyApp />)
+createRoot(document.getElementById('root')).render(<><LegacyApp /><VisualExperience /></>)

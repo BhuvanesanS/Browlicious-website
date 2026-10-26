@@ -1,0 +1,88 @@
+/* Shared atelier presentation for public publishing pages and the CMS.
+   No form, authentication, article data or publication behavior is modified. */
+body:not(.admin-body):has(.journal-header),body.admin-body{--ink:#2d2027;--rose:#a92d58;--line:#dfcfd4;--muted:#76666c;background:radial-gradient(ellipse at 85% 5%,#eed2dc 0,transparent 45%),#faf8f4;color:var(--ink)}
+body:has(.journal-header) :is(a,button):focus-visible,body.admin-body :is(a,button,input,textarea,select,summary):focus-visible{outline:3px solid #a92d58;outline-offset:4px}
+body:has(.journal-header) .journal-header{background:#faf8f4ed;box-shadow:0 8px 30px #49263608}
+body:has(.journal-header) .journal-cta{border-radius:4px;overflow:hidden;transition:background .25s,box-shadow .25s}
+body:has(.journal-header) .journal-cta:after{display:none}
+body:has(.journal-header) .blog-wrap{position:relative;padding-top:90px}
+body:has(.journal-header) .blog-wrap>h1{font-size:clamp(46px,6.5vw,92px);letter-spacing:-.055em;line-height:1.04;max-width:900px;position:relative}
+body:has(.journal-header) .blog-wrap>h1 em{color:#a92d58}
+body:has(.journal-header) .blog-wrap>.eyebrow{display:flex;align-items:center;gap:15px}
+body:has(.journal-header) .blog-wrap>.eyebrow:before{content:'';width:7px;height:7px;border-radius:50%;background:#a92d58;box-shadow:0 0 0 5px #a92d5810}
+body:has(.journal-header) .blog-wrap:before{content:'';position:absolute;right:2%;top:30px;width:220px;height:280px;border:1px solid #aa6b8033;border-radius:50%;transform:perspective(700px) rotateY(55deg) rotateZ(30deg);box-shadow:12px 0 0 #fff6,24px 0 0 #aa6b800a;pointer-events:none;z-index:-1}
+body:has(.journal-header) .post-grid{gap:32px;perspective:1200px;align-items:start}
+body:has(.journal-header) .post-card{border:1px solid #dbc6cf;border-radius:110px 110px 6px 6px;background:#fffaf6;box-shadow:0 15px 36px #6134480d;transition:transform .4s ease,box-shadow .4s,border-color .4s;overflow:hidden;min-width:0;animation:atelier-arrive .65s ease both}
+body:has(.journal-header) .post-card:nth-child(even){border-radius:6px 6px 75px 6px;animation-delay:.1s}
+body:has(.journal-header) .post-card:not(:has(img)){border-radius:6px;border-top:3px solid #a92d58}
+body:has(.journal-header) .post-card img{transition:transform .65s;aspect-ratio:16/10}
+body:has(.journal-header) .post-card>div{padding:32px}
+body:has(.journal-header) .post-card h2{font-size:clamp(26px,2.5vw,36px);line-height:1.15;overflow-wrap:anywhere}
+body:has(.journal-header) .post-card p{line-height:1.8}
+body:has(.journal-header) .read-more{color:#822345;transition:color .25s,border-color .25s}
+body:has(.journal-header) .journal-notes{padding:65px 0;margin-top:80px}
+body:has(.journal-header) .journal-note-list article{transition:background .3s,padding .3s}
+body:has(.journal-header) .journal-callout{position:relative;overflow:hidden;border:1px solid #d8aebe;border-radius:8px!important;background:radial-gradient(ellipse at 90% 0,#f6e9de,transparent 65%),#e5b6c7!important;padding:45px!important}
+body:has(.journal-header) .journal-callout:after{content:'';position:absolute;right:-60px;top:-130px;width:260px;height:260px;border:1px solid #fff8;border-radius:50%;pointer-events:none}
+body:has(.journal-header) .journal-callout .button{border-radius:4px;position:relative;z-index:1;line-height:1.5}
+body:has(.journal-header) .article-wrap{width:min(900px,calc(100% - 48px));padding-block:65px 100px;overflow-wrap:anywhere}
+body:has(.journal-header) .article-wrap>h1{font-size:clamp(40px,5vw,68px);letter-spacing:-.045em;line-height:1.08;margin-block:22px}
+body:has(.journal-header) .article-wrap>.post-date{margin-top:35px;color:#a92d58}
+body:has(.journal-header) .article-intro{max-width:720px;line-height:1.8}
+body:has(.journal-header) .article-cover{border-radius:100px 8px 8px 8px;border:6px solid #fff9;box-shadow:0 20px 55px #61344818;margin:35px 0;animation:atelier-arrive .7s ease both}
+body:has(.journal-header) .article-content{max-width:740px;margin:35px auto 0;font-size:17px;line-height:1.95}
+body:has(.journal-header) .article-content :is(img,video,iframe){max-width:100%;height:auto}
+body:has(.journal-header) .article-content pre{overflow:auto;max-width:100%}
+body:has(.journal-header) .article-content h2{font-size:34px;font-weight:400;letter-spacing:-.025em}
+body:has(.journal-header) .article-content blockquote{margin:32px 0;border-left:3px solid #a92d58;padding:20px 28px;background:#efdee4;font:italic 24px/1.6 Georgia,serif}
+body:has(.journal-header) .back{display:inline-block;font-size:12px;padding:10px 0;border-bottom:1px solid #b88296}
+body:has(.journal-header)>footer{background:radial-gradient(ellipse at 0 0,#54303e,transparent 65%),#291a23}
+/* Keep editing controls still. Depth comes from surfaces, focus and colour. */
+body.admin-body{animation:none;min-height:100vh;cursor:auto}
+body.admin-body .admin-header{position:relative;gap:20px;padding:22px max(4vw,20px);background:#faf8f4eF;border-bottom:1px solid #dfcfd4;box-shadow:0 8px 30px #49263608}
+body.admin-body .admin-header .logo{position:relative;padding-left:65px;font:400 29px/1 Georgia,serif;min-height:50px;display:flex;flex-direction:column;justify-content:center}
+body.admin-body .admin-header .logo:before{content:'';position:absolute;left:0;top:0;width:50px;height:50px;background:url('/brand-logo.png') center/contain no-repeat}
+body.admin-body .logo span{margin-top:7px;color:#a92d58;font-size:9px;letter-spacing:.15em}
+body.admin-body .admin-header :is(a:not(.logo),button){font-size:12px;color:#822345}
+body.admin-body .admin-wrap{width:min(1320px,calc(100% - 64px));margin:55px auto 80px}
+body.admin-body .admin-title{padding-bottom:26px;border-bottom:1px solid #dfcfd4;margin-bottom:32px}
+body.admin-body .admin-title h1{font:400 clamp(38px,4.2vw,60px)/1.05 Georgia,serif;letter-spacing:-.045em}
+body.admin-body .admin-title .eyebrow{color:#a92d58;font-size:10px;letter-spacing:.16em}
+body.admin-body .admin-title p:not(.eyebrow){font-size:14px;line-height:1.8}
+body.admin-body .admin-grid{grid-template-columns:minmax(240px,.8fr) minmax(0,2.3fr);gap:28px;align-items:start}
+body.admin-body :is(.post-list-panel,.editor-panel,.login-panel,.notice){border:1px solid #dfcfd4;border-radius:8px;background:#fffcf8;box-shadow:0 16px 45px #6134480c;min-width:0}
+body.admin-body .post-list-panel{padding:24px}.admin-body .editor-panel{padding:32px}
+body.admin-body .list-heading{flex-wrap:wrap;gap:14px}
+body.admin-body .list-heading h2{font:400 28px Georgia,serif}
+body.admin-body .post-item{background:transparent;border-top-color:#e9dbe0;padding:16px 12px;border-left:3px solid transparent;transition:background .2s,border-color .2s;overflow-wrap:anywhere}
+body.admin-body .post-item.selected{background:#f3e1e8;border-left-color:#a92d58}
+body.admin-body .post-item:hover{background:#f8ebef}
+body.admin-body .post-item strong{font-size:13px;line-height:1.5}
+body.admin-body .editor-panel label{font-size:12px;letter-spacing:.01em}
+body.admin-body :is(.editor-panel,.login-panel) :is(input:not([type=hidden]),textarea,select),body.admin-body .list-heading select{border:1px solid #d8bdc8;border-radius:4px;background:#fff;color:#2d2027;font-size:16px;min-height:44px;max-width:100%;transition:border-color .2s,box-shadow .2s}
+body.admin-body :is(input,textarea,select):focus{border-color:#a92d58;box-shadow:0 0 0 3px #a92d5810}
+body.admin-body .editor-panel textarea{line-height:1.75}
+body.admin-body .editor-panel small{display:inline-block;font-size:11px;line-height:1.6;font-weight:400}
+body.admin-body .form-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+body.admin-body .form-row.controls{grid-template-columns:1fr}
+body.admin-body .actions{flex-wrap:wrap;justify-content:flex-start;padding:4px 0 12px;gap:12px}
+body.admin-body .button{min-height:44px;border:1px solid #a92d58;border-radius:4px;background:#a92d58;box-shadow:none;color:#fff;font-size:12px;line-height:1.5;padding:13px 20px;cursor:pointer;transform:none!important;transition:background .2s,box-shadow .2s}
+body.admin-body .button:hover{background:#822345;box-shadow:0 5px 14px #82234520}
+body.admin-body .button-quiet{background:#f3e1e8;border-color:#d9b8c5;color:#60263c}
+body.admin-body .button-quiet:hover{background:#ead0db}
+body.admin-body button:disabled{opacity:.6;cursor:not-allowed;box-shadow:none}
+body.admin-body .text-button{min-height:44px;line-height:1.5;padding:10px 0;color:#a12c4f}
+body.admin-body .seo{border-color:#dfcfd4;padding-block:20px}
+body.admin-body .seo summary{padding:8px 0;font-size:13px;cursor:pointer}
+body.admin-body .seo[open] summary{margin-bottom:20px;color:#822345}
+body.admin-body .cover-preview img{max-width:100%;border-radius:6px;border:4px solid #f0e1e6}
+body.admin-body .login-panel{padding:38px;border-top:3px solid #a92d58}
+body.admin-body .login-panel h1{font:400 42px/1.1 Georgia,serif;letter-spacing:-.04em}
+body.admin-body .login-panel>p:not(.eyebrow){font-size:14px;line-height:1.8}
+body.admin-body .form-status{overflow-wrap:anywhere;font-size:13px}
+@keyframes atelier-arrive{from{opacity:.5;translate:0 14px}to{opacity:1;translate:0 0}}
+@media(min-width:851px){body:has(.journal-header) .post-card:only-child{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;align-items:center;border-radius:100px 6px 6px 6px}body:has(.journal-header) .post-card:only-child>img{height:100%;min-height:380px;aspect-ratio:auto}body:has(.journal-header) .post-card:only-child>div{padding:45px}body:has(.journal-header) .post-card:only-child:not(:has(img)){display:block}}
+@media(hover:hover) and (pointer:fine){body:has(.journal-header) .post-card:hover{transform:perspective(1200px) rotateY(-2deg) translateY(-5px);box-shadow:0 25px 45px #61344820;border-color:#b67d92}body:has(.journal-header) .post-card:hover img{transform:scale(1.035)}body:has(.journal-header) .journal-note-list article:hover{padding-left:10px;background:#fff4}}
+@media(max-width:850px){body.admin-body .admin-wrap{width:calc(100% - 40px);margin-block:30px 55px}body.admin-body .admin-grid{grid-template-columns:1fr}body.admin-body .post-list{max-height:300px;overflow:auto}body:has(.journal-header) .blog-wrap{padding-top:50px}body:has(.journal-header) .post-card>div{padding:24px}}
+@media(max-width:540px){body:has(.journal-header) .blog-wrap>h1{font-size:48px}body:has(.journal-header) .blog-wrap:before{width:130px;height:180px}body:has(.journal-header) .post-grid{grid-template-columns:1fr;gap:28px}body:has(.journal-header) .post-card{border-radius:70px 70px 5px 5px}body:has(.journal-header) .article-wrap{width:calc(100% - 40px);padding-top:40px}body:has(.journal-header) .article-cover{border-radius:60px 5px 5px 5px;border-width:4px}body:has(.journal-header) .article-content{font-size:16px}body:has(.journal-header) .article-content h2{font-size:29px}body:has(.journal-header) .journal-callout{padding:28px!important}body:has(.journal-header) .journal-callout .button{white-space:normal}body.admin-body .admin-header{flex-wrap:wrap;padding:18px 20px}body.admin-body .admin-header .logo{font-size:26px}body.admin-body .admin-title{gap:18px}body.admin-body :is(.editor-panel,.post-list-panel,.login-panel){padding:20px}body.admin-body .form-row{grid-template-columns:1fr}body.admin-body .login-panel h1{font-size:34px}body.admin-body input[type=file]{font-size:12px;padding:10px 6px}body.admin-body .actions .button{flex:1}body.admin-body .admin-header-actions{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){body:has(.journal-header) *,body.admin-body *{animation:none!important;transition:none!important}body:has(.journal-header) .post-card:hover,body:has(.journal-header) .post-card:hover img{transform:none}}

@@ -3,6 +3,11 @@
   "buildCommand": "npm run build",
   "outputDirectory": "public",
   "framework": null,
+  "git": {
+    "deploymentEnabled": {
+      "main": false
+    }
+  },
   "rewrites": [
     { "source": "/blog", "destination": "/blog/index.html" },
     { "source": "/blog/:slug", "destination": "/blog/post.html?slug=:slug" },
