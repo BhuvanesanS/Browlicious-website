@@ -5,7 +5,7 @@
   "framework": null,
   "git": {
     "deploymentEnabled": {
-      "main": false
+      "main": true
     }
   },
   "rewrites": [
@@ -13,9 +13,12 @@
     { "source": "/blog/:slug", "destination": "/blog/post.html?slug=:slug" },
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/services", "destination": "/index.html" },
+    { "source": "/services/(.*)", "destination": "/index.html" },
     { "source": "/testimonials", "destination": "/index.html" },
     { "source": "/academy", "destination": "/index.html" },
     { "source": "/about", "destination": "/index.html" },
+    { "source": "/aftercare", "destination": "/index.html" },
+    { "source": "/journey", "destination": "/index.html" },
     { "source": "/resources", "destination": "/index.html" },
     { "source": "/contact", "destination": "/index.html" }
   ]

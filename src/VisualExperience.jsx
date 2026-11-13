@@ -42,7 +42,7 @@ export function VisualExperience() {
             observer.unobserve(entry.target)
           }
         }), { threshold: .08 })
-        document.querySelectorAll('.page-transition .section-head, .studio-statement, .signature-grid article, .artist-copy, .results-strip figure, .care-editorial li, .journal-preview, .page-cta-inner, .full-service-grid article, .comparison-grid article, .about-values article, .testimonial-card, .detail-side, .accordions details').forEach((node, index) => {
+        document.querySelectorAll('.page-transition .section-head, .studio-statement, .signature-grid article, .artist-copy, .results-strip figure, .care-editorial li, .journal-preview, .page-cta-inner, .full-service-grid article, .comparison-grid article, .about-values article, .testimonial-card, .learner-testimonial-card, .detail-side, .accordions details').forEach((node, index) => {
           if (node.classList.contains('motion-entered')) return
           node.style.setProperty('--reveal-delay', `${index % 3 * 65}ms`)
           node.classList.add('motion-ready')
