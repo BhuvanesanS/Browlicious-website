@@ -1942,20 +1942,24 @@ body {
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
   width: 100%;
   padding: 12px 14px;
   border-radius: var(--radius-sm);
   border: 1.5px solid var(--border-line);
   font-family: var(--font-sans);
   font-size: 14px;
-  color: var(--ink);
+  color: var(--ink) !important;
+  background-color: #ffffff !important;
   outline: none;
   transition: border-color 0.2s ease;
+  box-sizing: border-box;
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
   border-color: var(--dusty-pink);
 }
 
@@ -2790,6 +2794,10 @@ body {
   .service-page-grid {
     grid-template-columns: 1fr !important;
     gap: 16px !important;
+  }
+
+  .luxury-footer {
+    padding-bottom: 115px !important;
   }
 
   .trust-badges-grid {

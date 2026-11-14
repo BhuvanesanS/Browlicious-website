@@ -486,7 +486,7 @@ export function LuxuryApp() {
                   className="topbar-btn topbar-btn-call"
                   style={{ fontSize: "11px", padding: "6px 12px" }}
                 >
-                  Google Maps ↗
+                  {lang === "ta" ? "கூகுள் மேப் ↗" : "Google Maps ↗"}
                 </a>
               </div>
             </div>
@@ -499,7 +499,7 @@ export function LuxuryApp() {
                     onClick={() => navigate("/services/microblading")}
                     className="nav-link"
                   >
-                    Microblading
+                    {lang === "ta" ? "மைக்ரோபிளேடிங்" : "Microblading"}
                   </button>
                 </li>
                 <li>
@@ -507,7 +507,9 @@ export function LuxuryApp() {
                     onClick={() => navigate("/services/ombre-brows")}
                     className="nav-link"
                   >
-                    Ombre (Powder) Brows
+                    {lang === "ta"
+                      ? "ஓம்ப்ரே பவுடர் புருவம்"
+                      : "Ombre (Powder) Brows"}
                   </button>
                 </li>
                 <li>
@@ -515,7 +517,7 @@ export function LuxuryApp() {
                     onClick={() => navigate("/services/combination-brows")}
                     className="nav-link"
                   >
-                    Combination Brows
+                    {lang === "ta" ? "காம்பினேஷன் புருவம்" : "Combination Brows"}
                   </button>
                 </li>
                 <li>
@@ -523,7 +525,7 @@ export function LuxuryApp() {
                     onClick={() => navigate("/services/lip-blush")}
                     className="nav-link"
                   >
-                    Lip Blush
+                    {lang === "ta" ? "லிப் பிளஷ்" : "Lip Blush"}
                   </button>
                 </li>
                 <li>
@@ -531,7 +533,9 @@ export function LuxuryApp() {
                     onClick={() => navigate("/services/dark-lip-correction")}
                     className="nav-link"
                   >
-                    Dark Lip Pigmentation
+                    {lang === "ta"
+                      ? "கருமை உதடு நீக்கம்"
+                      : "Dark Lip Pigmentation"}
                   </button>
                 </li>
                 <li>
@@ -539,7 +543,7 @@ export function LuxuryApp() {
                     onClick={() => navigate("/services/eyeliner")}
                     className="nav-link"
                   >
-                    Permanent Eyeliner
+                    {lang === "ta" ? "பர்மனென்ட் ஐலைனர்" : "Permanent Eyeliner"}
                   </button>
                 </li>
                 <li>
@@ -547,7 +551,9 @@ export function LuxuryApp() {
                     onClick={() => navigate("/services/smp-men")}
                     className="nav-link"
                   >
-                    SMP for Men & Women
+                    {lang === "ta"
+                      ? "ஸ்கால்ப் மைக்ரோபிக்மென்டேஷன்"
+                      : "SMP for Men & Women"}
                   </button>
                 </li>
               </ul>
@@ -603,7 +609,9 @@ export function LuxuryApp() {
                     onClick={() => navigate("/contact")}
                     className="nav-link"
                   >
-                    {t.nav.contact} & Location
+                    {lang === "ta"
+                      ? "தொடர்பு & கிளினிக் முகவரி"
+                      : `${t.nav.contact} & Location`}
                   </button>
                 </li>
               </ul>
