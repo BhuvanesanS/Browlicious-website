@@ -52,10 +52,10 @@
   --radius-full: 9999px;
 
   /* Typography */
-  --font-serif: "Playfair Display", Georgia, serif;
+  --font-serif: "Playfair Display", "Noto Serif Tamil", Georgia, serif;
   --font-sans:
-    "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    sans-serif;
+    "Plus Jakarta Sans", "Noto Sans Tamil", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
 }
 
 /* Base Styles */
@@ -2124,13 +2124,15 @@ body {
   color: #f7dbe4;
   line-height: 1.7;
   margin: 16px 0 20px;
+  color: #f7e6ee;
 }
 
 .footer-col h5 {
   font-family: var(--font-serif);
-  font-size: 17px;
+  font-size: 18px;
   color: var(--gold-metallic);
   margin-bottom: 18px;
+  letter-spacing: 0.03em;
 }
 
 .footer-links-list {
@@ -2138,31 +2140,72 @@ body {
 }
 
 .footer-links-list li {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
-.footer-links-list a {
-  color: #edd1dc;
-  text-decoration: none;
-  font-size: 13px;
-  transition: color 0.2s ease;
+.footer-links-list a,
+.footer-links-list button,
+.footer-links-list .nav-link {
+  color: #f7e6ee !important;
+  text-decoration: none !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  background: none !important;
+  border: none !important;
+  padding: 5px 0 !important;
+  text-align: left !important;
+  cursor: pointer !important;
+  display: block !important;
+  transition: all 0.2s ease !important;
+  opacity: 0.95;
 }
 
-.footer-links-list a:hover {
-  color: var(--gold-metallic);
+.footer-links-list a:hover,
+.footer-links-list button:hover,
+.footer-links-list .nav-link:hover {
+  color: var(--gold-metallic) !important;
+  opacity: 1 !important;
+  transform: translateX(4px);
 }
 
 .footer-contact-info p {
-  font-size: 13px;
-  color: #edd1dc;
+  font-size: 14px;
+  color: #f7e6ee !important;
   line-height: 1.6;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
-.footer-contact-info a {
-  color: var(--gold-metallic);
+.footer-contact-info p b {
+  color: var(--gold-metallic) !important;
+  display: block;
+  margin-bottom: 3px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.footer-contact-info a:not(.btn-luxury-gold) {
+  color: #ffffff !important;
   text-decoration: none;
   font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.footer-contact-info a:not(.btn-luxury-gold):hover {
+  color: var(--gold-metallic) !important;
+}
+
+.footer-contact-info a.btn-luxury-gold,
+.luxury-footer .btn-luxury-gold {
+  color: #1a0614 !important;
+  background: var(--gold-gradient) !important;
+  font-weight: 800 !important;
+  border: 1.5px solid #ffffff !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.45) !important;
+  text-shadow: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
 }
 
 .footer-bottom-bar {
@@ -2171,7 +2214,60 @@ body {
   align-items: center;
   justify-content: space-between;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
+  color: #f7d5e4 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  margin-top: 30px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Prominent Navbar & Drawer Language Switchers */
+.navbar-lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--gold-light);
+  color: var(--deep-plum);
+  border: 1px solid var(--gold-metallic);
+  border-radius: var(--radius-full);
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.navbar-lang-switch:hover {
+  background: var(--gold-metallic);
+  color: #fff;
+}
+
+.drawer-lang-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 16px;
+  background: var(--sand-bg);
+  padding: 4px;
+  border-radius: 12px;
+}
+
+.drawer-lang-btn {
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+
+.drawer-lang-btn.active {
+  background: var(--deep-plum);
+  color: var(--gold-metallic);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ==========================================================================
@@ -3093,4 +3189,47 @@ body {
   .service-sidebar-card {
     position: static;
   }
+}
+
+/* ==========================================================================
+   TAMIL LUXURY TYPOGRAPHY ENHANCEMENTS
+   ========================================================================== */
+:lang(ta) {
+  letter-spacing: normal;
+}
+
+:lang(ta) h1,
+:lang(ta) h2,
+:lang(ta) h3,
+:lang(ta) h4,
+:lang(ta) h5,
+:lang(ta) .hero-headline,
+:lang(ta) .luxury-title,
+:lang(ta) .page-headline-lg,
+:lang(ta) .brand-text b,
+:lang(ta) .footer-brand b {
+  font-family:
+    "Noto Serif Tamil", "Playfair Display", Georgia, serif !important;
+  line-height: 1.35 !important;
+}
+
+:lang(ta) body,
+:lang(ta) p,
+:lang(ta) span,
+:lang(ta) button,
+:lang(ta) a,
+:lang(ta) input,
+:lang(ta) select,
+:lang(ta) textarea,
+:lang(ta) li,
+:lang(ta) b {
+  font-family: "Noto Sans Tamil", "Plus Jakarta Sans", sans-serif !important;
+  line-height: 1.65;
+}
+
+:lang(ta) .btn-luxury-gold,
+:lang(ta) .btn-luxury-primary,
+:lang(ta) .topbar-btn,
+:lang(ta) .mobile-bar-btn {
+  font-weight: 700 !important;
 }
