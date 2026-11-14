@@ -233,13 +233,6 @@ export function LuxuryApp() {
           </div>
 
           <div className="topbar-actions">
-            <button
-              className="lang-switch"
-              onClick={() => setLang(lang === "en" ? "ta" : "en")}
-              title="Toggle Tamil / English"
-            >
-              {t.topbar.langToggle}
-            </button>
             <a
               href={`tel:${CLINIC_INFO.phoneCall}`}
               className="topbar-btn topbar-btn-call"
@@ -1460,6 +1453,12 @@ function AboutPage({ navigate, onBook, t, lang }) {
                 <img
                   src={ASSETS.founderImg}
                   alt="Durga - Founder of Browlicious Chennai"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "center top",
+                  }}
                 />
               </div>
               <div style={{ textAlign: "center", marginTop: "16px" }}>
