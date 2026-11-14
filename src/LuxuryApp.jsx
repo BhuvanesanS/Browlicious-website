@@ -38,16 +38,22 @@ function useNavigation() {
 export function LuxuryApp() {
   const { currentPath, navigate } = useNavigation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [lang, setLang] = useState("en");
+  const [lang, setLang] = useState(() => {
+    try {
+      return localStorage.getItem("browlicious_lang") || "en";
+    } catch (e) {
+      return "en";
+    }
+  });
 
   useEffect(() => {
     try {
-      localStorage.removeItem("browlicious_lang");
+      localStorage.setItem("browlicious_lang", lang);
     } catch (e) {
       /* ignore storage errors */
     }
-    document.documentElement.lang = "en";
-  }, []);
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
@@ -255,6 +261,32 @@ export function LuxuryApp() {
             >
               ✨ {t.topbar.bookAppt}
             </button>
+
+            {/* Seamless Segmented Language Switcher */}
+            <div
+              className="topbar-lang-pill"
+              role="group"
+              aria-label="Language selection"
+            >
+              <button
+                type="button"
+                className={`topbar-lang-btn ${lang === "en" ? "active" : ""}`}
+                onClick={() => setLang("en")}
+                aria-pressed={lang === "en"}
+                title="Switch to English"
+              >
+                EN
+              </button>
+              <button
+                type="button"
+                className={`topbar-lang-btn ${lang === "ta" ? "active" : ""}`}
+                onClick={() => setLang("ta")}
+                aria-pressed={lang === "ta"}
+                title="தமிழுக்கு மாறுக"
+              >
+                தமிழ்
+              </button>
+            </div>
           </div>
         </div>
       </aside>
@@ -287,6 +319,30 @@ export function LuxuryApp() {
           </button>
 
           <nav className={`nav-menu ${mobileMenuOpen ? "mobile-open" : ""}`}>
+            {mobileMenuOpen && (
+              <div className="drawer-lang-card">
+                <span className="drawer-lang-label">
+                  {lang === "ta" ? "மொழியைத் தேர்வு செய்க" : "Select Language"}
+                </span>
+                <div className="drawer-lang-toggle">
+                  <button
+                    type="button"
+                    className={`drawer-lang-segment ${lang === "en" ? "active" : ""}`}
+                    onClick={() => setLang("en")}
+                  >
+                    🇬🇧 English
+                  </button>
+                  <button
+                    type="button"
+                    className={`drawer-lang-segment ${lang === "ta" ? "active" : ""}`}
+                    onClick={() => setLang("ta")}
+                  >
+                    🇮🇳 தமிழ்
+                  </button>
+                </div>
+              </div>
+            )}
+
             <button
               className={`nav-link ${currentPath === "/" ? "active" : ""}`}
               onClick={() => {
@@ -632,6 +688,26 @@ export function LuxuryApp() {
             <span>
               © {new Date().getFullYear()} Browlicious | {t.footer.rights}
             </span>
+            <div className="footer-lang-selector">
+              <span className="footer-lang-label">
+                {lang === "ta" ? "மொழி:" : "Language:"}
+              </span>
+              <button
+                type="button"
+                className={`footer-lang-btn ${lang === "en" ? "active" : ""}`}
+                onClick={() => setLang("en")}
+              >
+                English
+              </button>
+              <span style={{ opacity: 0.35 }}>|</span>
+              <button
+                type="button"
+                className={`footer-lang-btn ${lang === "ta" ? "active" : ""}`}
+                onClick={() => setLang("ta")}
+              >
+                தமிழ்
+              </button>
+            </div>
             <span>{t.footer.sanctuary}</span>
           </div>
         </div>
