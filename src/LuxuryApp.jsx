@@ -85,6 +85,21 @@ export function LuxuryApp() {
     }
   }, []);
 
+  // Lock body scroll and set modal-open class when booking modal or popup is active
+  useEffect(() => {
+    if (bookingOpen || showConsultPopup) {
+      document.body.classList.add("modal-open");
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.classList.remove("modal-open");
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.classList.remove("modal-open");
+      document.body.style.overflow = "";
+    };
+  }, [bookingOpen, showConsultPopup]);
+
   const openBookingFor = (serviceName) => {
     if (serviceName) setBookingService(serviceName);
     setBookingSent(false);
@@ -714,44 +729,48 @@ export function LuxuryApp() {
       </footer>
 
       {/* Floating WhatsApp Quick Action Button */}
-      <a
-        href={`${CLINIC_INFO.whatsappUrl}?text=${encodeURIComponent("Hello Browlicious! I would like to make an enquiry.")}`}
-        target="_blank"
-        rel="noreferrer"
-        className="floating-whatsapp-widget"
-        aria-label="Chat with Browlicious on WhatsApp"
-      >
-        <svg viewBox="0 0 32 32">
-          <path d="M27.1 4.8A15 15 0 0 0 3.5 22.9L2 30l7.3-1.5A15 15 0 1 0 27.1 4.8Zm-11 24.6a12.3 12.3 0 0 1-6.2-1.7l-.4-.2-4.3.9.9-4.2-.3-.4A12.2 12.2 0 1 1 16.1 29.4Zm6.7-9.2c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.7-.2-1 .2s-1 1.3-1.2 1.6c-.2.3-.5.3-.9.1-2.5-1.2-4.1-2.2-5.8-5-.4-.6.4-.6 1.1-2 .1-.3.1-.6 0-.8-.1-.2-1-2.3-1.3-3.2-.4-.9-.7-.8-1-.8h-.8c-.3 0-.8.1-1.2.6s-1.6 1.6-1.6 3.9 1.6 4.5 1.9 4.8c.2.3 3.2 5 7.8 7 .7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 2.3-.9 2.6-1.8.3-.9.3-1.7.2-1.8-.1-.2-.3-.3-.7-.5Z" />
-        </svg>
-        <span>WhatsApp Us</span>
-      </a>
+      {!bookingOpen && !showConsultPopup && (
+        <a
+          href={`${CLINIC_INFO.whatsappUrl}?text=${encodeURIComponent("Hello Browlicious! I would like to make an enquiry.")}`}
+          target="_blank"
+          rel="noreferrer"
+          className="floating-whatsapp-widget"
+          aria-label="Chat with Browlicious on WhatsApp"
+        >
+          <svg viewBox="0 0 32 32">
+            <path d="M27.1 4.8A15 15 0 0 0 3.5 22.9L2 30l7.3-1.5A15 15 0 1 0 27.1 4.8Zm-11 24.6a12.3 12.3 0 0 1-6.2-1.7l-.4-.2-4.3.9.9-4.2-.3-.4A12.2 12.2 0 1 1 16.1 29.4Zm6.7-9.2c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.7-.2-1 .2s-1 1.3-1.2 1.6c-.2.3-.5.3-.9.1-2.5-1.2-4.1-2.2-5.8-5-.4-.6.4-.6 1.1-2 .1-.3.1-.6 0-.8-.1-.2-1-2.3-1.3-3.2-.4-.9-.7-.8-1-.8h-.8c-.3 0-.8.1-1.2.6s-1.6 1.6-1.6 3.9 1.6 4.5 1.9 4.8c.2.3 3.2 5 7.8 7 .7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 2.3-.9 2.6-1.8.3-.9.3-1.7.2-1.8-.1-.2-.3-.3-.7-.5Z" />
+          </svg>
+          <span>WhatsApp Us</span>
+        </a>
+      )}
 
       {/* Mobile Sticky Bottom Thumb-Zone Bar */}
-      <div className="mobile-sticky-bottom-bar">
-        <div className="mobile-bar-actions">
-          <a
-            href={`tel:${CLINIC_INFO.phoneCall}`}
-            className="mobile-bar-btn mobile-bar-call"
-          >
-            {t.bottomBar.call}
-          </a>
-          <button
-            onClick={() => openBookingFor("Consultation")}
-            className="mobile-bar-btn mobile-bar-book"
-          >
-            {t.bottomBar.consult}
-          </button>
-          <a
-            href={`${CLINIC_INFO.whatsappUrl}?text=${encodeURIComponent("Hello Browlicious! I would like to make an enquiry.")}`}
-            target="_blank"
-            rel="noreferrer"
-            className="mobile-bar-btn mobile-bar-wa"
-          >
-            {t.bottomBar.whatsApp}
-          </a>
+      {!bookingOpen && !showConsultPopup && (
+        <div className="mobile-sticky-bottom-bar">
+          <div className="mobile-bar-actions">
+            <a
+              href={`tel:${CLINIC_INFO.phoneCall}`}
+              className="mobile-bar-btn mobile-bar-call"
+            >
+              {t.bottomBar.call}
+            </a>
+            <button
+              onClick={() => openBookingFor("Consultation")}
+              className="mobile-bar-btn mobile-bar-book"
+            >
+              {t.bottomBar.consult}
+            </button>
+            <a
+              href={`${CLINIC_INFO.whatsappUrl}?text=${encodeURIComponent("Hello Browlicious! I would like to make an enquiry.")}`}
+              target="_blank"
+              rel="noreferrer"
+              className="mobile-bar-btn mobile-bar-wa"
+            >
+              {t.bottomBar.whatsApp}
+            </a>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Reusable Booking Modal */}
       {bookingOpen && (
@@ -762,35 +781,33 @@ export function LuxuryApp() {
           <div
             className="luxury-modal-dialog"
             onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-booking-title"
           >
-            <button
-              className="modal-close-btn"
-              onClick={() => setBookingOpen(false)}
-              aria-label="Close form"
-            >
-              ✕
-            </button>
-            <div className="modal-inner-card">
-              <span className="luxury-eyebrow">{t.bookingModal.eyebrow}</span>
-              <h2
-                style={{
-                  fontFamily: "var(--font-serif)",
-                  fontSize: "28px",
-                  color: "var(--deep-plum)",
-                  marginBottom: "8px",
-                }}
+            <div className="modal-header-bar">
+              <div>
+                <span
+                  className="luxury-eyebrow"
+                  style={{ marginBottom: "2px", display: "block" }}
+                >
+                  {t.bookingModal.eyebrow}
+                </span>
+                <h2 id="modal-booking-title" className="modal-title-text">
+                  {t.bookingModal.title}
+                </h2>
+              </div>
+              <button
+                className="modal-close-btn"
+                onClick={() => setBookingOpen(false)}
+                aria-label="Close form"
               >
-                {t.bookingModal.title}
-              </h2>
-              <p
-                style={{
-                  color: "var(--text-muted)",
-                  fontSize: "14px",
-                  marginBottom: "24px",
-                }}
-              >
-                {t.bookingModal.desc}
-              </p>
+                ✕
+              </button>
+            </div>
+
+            <div className="modal-scroll-body">
+              <p className="modal-desc-text">{t.bookingModal.desc}</p>
 
               {bookingSent ? (
                 <div style={{ textAlign: "center", padding: "24px 0" }}>
@@ -827,14 +844,14 @@ export function LuxuryApp() {
                     rel="noreferrer"
                     className="btn-luxury-gold"
                   >
-                    {t.bookingModal.btnOpenChat} <span>↗</span>
+                    {t.bookingModal.btnOpenChat}
                   </a>
                 </div>
               ) : (
                 <form onSubmit={handleBookingSubmit}>
                   <div className="booking-form-row">
                     <div className="form-group">
-                      <label>{t.bookingModal.serviceLabel} *</label>
+                      <label>{t.bookingModal.serviceLabel}</label>
                       <select
                         value={bookingService}
                         onChange={(e) => setBookingService(e.target.value)}
@@ -864,7 +881,7 @@ export function LuxuryApp() {
                     </div>
 
                     <div className="form-group">
-                      <label>{t.bookingModal.dateLabel} *</label>
+                      <label>{t.bookingModal.dateLabel}</label>
                       <select
                         value={bookingDate}
                         onChange={(e) => setBookingDate(e.target.value)}
@@ -899,7 +916,7 @@ export function LuxuryApp() {
 
                   <div className="booking-form-row">
                     <div className="form-group">
-                      <label>{t.bookingModal.nameLabel} *</label>
+                      <label>{t.bookingModal.nameLabel}</label>
                       <input
                         type="text"
                         required
@@ -911,7 +928,7 @@ export function LuxuryApp() {
                       />
                     </div>
                     <div className="form-group">
-                      <label>{t.bookingModal.phoneLabel} *</label>
+                      <label>{t.bookingModal.phoneLabel}</label>
                       <input
                         type="tel"
                         required
@@ -946,13 +963,7 @@ export function LuxuryApp() {
                     />
                   </div>
 
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      gap: "12px",
-                    }}
-                  >
+                  <div className="modal-action-row">
                     <button
                       type="button"
                       className="btn-luxury-outline"
@@ -961,7 +972,7 @@ export function LuxuryApp() {
                       {t.bookingModal.btnCancel}
                     </button>
                     <button type="submit" className="btn-luxury-gold">
-                      {t.bookingModal.btnConfirm} <span>↗</span>
+                      {t.bookingModal.btnConfirm}
                     </button>
                   </div>
                 </form>

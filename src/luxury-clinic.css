@@ -1113,29 +1113,109 @@ body {
   border-color: var(--dusty-pink);
 }
 
-/* Service Detail Modal */
+/* Service Detail & Booking Modal */
 .luxury-modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(30, 9, 22, 0.75);
+  background: rgba(30, 9, 22, 0.82);
   backdrop-filter: blur(10px);
-  z-index: 2000;
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 100000;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
+  animation: backdropFadeIn 0.2s ease-out;
+}
+
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .luxury-modal-dialog {
   background: #fff;
   border-radius: var(--radius-lg);
-  max-width: 820px;
+  max-width: 680px;
   width: 100%;
   max-height: 90vh;
-  overflow-y: auto;
+  max-height: 90dvh;
+  display: flex;
+  flex-direction: column;
   position: relative;
-  box-shadow: var(--shadow-plum);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
   border: 1px solid var(--border-pink);
+  overflow: hidden;
+  animation: modalSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-header-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 28px 16px;
+  border-bottom: 1px solid var(--border-line);
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.modal-header-bar .modal-close-btn {
+  position: static;
+  flex-shrink: 0;
+  margin-top: -2px;
+}
+
+.modal-title-text {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  color: var(--deep-plum);
+  line-height: 1.25;
+  margin: 0;
+}
+
+.modal-scroll-body {
+  padding: 20px 28px 28px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  flex: 1 1 auto;
+}
+
+.modal-desc-text {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.modal-action-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.modal-action-row button {
+  min-height: 48px;
+  padding: 12px 24px;
 }
 
 .modal-close-btn {
@@ -2400,9 +2480,10 @@ body {
 .consultation-popup-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(30, 9, 22, 0.7);
+  background: rgba(30, 9, 22, 0.78);
   backdrop-filter: blur(8px);
-  z-index: 2100;
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 100000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2933,14 +3014,41 @@ body {
   }
 
   .luxury-modal-backdrop {
-    padding: 12px !important;
+    padding: 0 !important;
+    align-items: flex-end !important;
+    z-index: 100000 !important;
   }
 
   .luxury-modal-dialog {
     width: 100% !important;
     max-width: 100% !important;
-    max-height: 88vh !important;
-    border-radius: var(--radius-md) !important;
+    max-height: 92dvh !important;
+    max-height: 92vh !important;
+    border-radius: 20px 20px 0 0 !important;
+    border-bottom: none !important;
+    margin: 0 !important;
+  }
+
+  .modal-header-bar {
+    padding: 16px 20px 14px !important;
+  }
+
+  .modal-title-text {
+    font-size: 20px !important;
+  }
+
+  .modal-scroll-body {
+    padding: 16px 20px 32px !important;
+  }
+
+  .modal-action-row {
+    flex-direction: column-reverse !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  .modal-action-row button {
+    width: 100% !important;
   }
 
   .modal-hero-cover {
@@ -3006,12 +3114,17 @@ body {
     bottom: 0 !important;
     left: 0 !important;
     right: 0 !important;
-    z-index: 9999 !important;
+    z-index: 990 !important;
     background: rgba(40, 13, 30, 0.98) !important;
     backdrop-filter: blur(16px) !important;
     padding: 8px 12px !important;
     border-top: 1px solid rgba(212, 175, 55, 0.4) !important;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.25) !important;
+  }
+
+  body.modal-open .mobile-sticky-bottom-bar,
+  body.modal-open .floating-whatsapp-widget {
+    display: none !important;
   }
 
   .mobile-bar-actions {
