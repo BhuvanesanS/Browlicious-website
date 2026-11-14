@@ -38,14 +38,16 @@ function useNavigation() {
 export function LuxuryApp() {
   const { currentPath, navigate } = useNavigation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [lang, setLang] = useState(() => {
-    return localStorage.getItem("browlicious_lang") || "en";
-  });
+  const [lang, setLang] = useState("en");
 
   useEffect(() => {
-    localStorage.setItem("browlicious_lang", lang);
-    document.documentElement.lang = lang;
-  }, [lang]);
+    try {
+      localStorage.removeItem("browlicious_lang");
+    } catch (e) {
+      /* ignore storage errors */
+    }
+    document.documentElement.lang = "en";
+  }, []);
 
   const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
@@ -285,21 +287,6 @@ export function LuxuryApp() {
           </button>
 
           <nav className={`nav-menu ${mobileMenuOpen ? "mobile-open" : ""}`}>
-            <div className="drawer-lang-selector">
-              <button
-                className={`drawer-lang-btn ${lang === "en" ? "active" : ""}`}
-                onClick={() => setLang("en")}
-              >
-                🇬🇧 English
-              </button>
-              <button
-                className={`drawer-lang-btn ${lang === "ta" ? "active" : ""}`}
-                onClick={() => setLang("ta")}
-              >
-                🇮🇳 தமிழ்
-              </button>
-            </div>
-
             <button
               className={`nav-link ${currentPath === "/" ? "active" : ""}`}
               onClick={() => {
@@ -364,72 +351,67 @@ export function LuxuryApp() {
               {t.nav.contact}
             </button>
 
-            <div
-              className="mobile-menu-footer"
-              style={{
-                marginTop: "16px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "10px",
-              }}
-            >
-              <button
-                className="btn-luxury-gold"
-                style={{
-                  width: "100%",
-                  padding: "14px",
-                  justifyContent: "center",
-                }}
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  openBookingFor("Free Consultation");
-                }}
-              >
-                {t.nav.bookConsultation} <span>↗</span>
-              </button>
+            {mobileMenuOpen && (
               <div
+                className="mobile-menu-footer"
                 style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: "8px",
+                  marginTop: "16px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
                 }}
               >
-                <a
-                  href={`tel:${CLINIC_INFO.phoneCall}`}
-                  className="topbar-btn topbar-btn-call"
+                <button
+                  className="btn-luxury-gold"
                   style={{
-                    textAlign: "center",
+                    width: "100%",
+                    padding: "14px",
                     justifyContent: "center",
-                    padding: "10px",
+                  }}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    openBookingFor("Free Consultation");
                   }}
                 >
-                  {t.nav.callClinic}
-                </a>
-                <a
-                  href={`${CLINIC_INFO.whatsappUrl}?text=${encodeURIComponent("Hello Browlicious!")}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="topbar-btn topbar-btn-wa"
+                  {t.nav.bookConsultation} <span>↗</span>
+                </button>
+                <div
                   style={{
-                    textAlign: "center",
-                    justifyContent: "center",
-                    padding: "10px",
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: "8px",
                   }}
                 >
-                  {t.nav.whatsApp}
-                </a>
+                  <a
+                    href={`tel:${CLINIC_INFO.phoneCall}`}
+                    className="topbar-btn topbar-btn-call"
+                    style={{
+                      textAlign: "center",
+                      justifyContent: "center",
+                      padding: "10px",
+                    }}
+                  >
+                    {t.nav.callClinic}
+                  </a>
+                  <a
+                    href={`${CLINIC_INFO.whatsappUrl}?text=${encodeURIComponent("Hello Browlicious!")}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="topbar-btn topbar-btn-wa"
+                    style={{
+                      textAlign: "center",
+                      justifyContent: "center",
+                      padding: "10px",
+                    }}
+                  >
+                    {t.nav.whatsApp}
+                  </a>
+                </div>
               </div>
-            </div>
+            )}
           </nav>
 
           <div className="nav-cta-group">
-            <button
-              className="navbar-lang-switch"
-              onClick={() => setLang(lang === "en" ? "ta" : "en")}
-              title="Toggle Tamil / English"
-            >
-              {lang === "en" ? "🇮🇳 தமிழ்" : "🇬🇧 EN"}
-            </button>
             <button
               className="btn-luxury-gold"
               onClick={() => openBookingFor("Free Consultation")}
@@ -641,7 +623,7 @@ export function LuxuryApp() {
                   marginTop: "8px",
                 }}
               >
-                {t.footer.btnDirections} 📍 <span>↗</span>
+                {t.footer.btnDirections}
               </a>
             </div>
           </div>

@@ -3,7 +3,7 @@ import aboutImg from "./assets/about.jpg";
 import academyImg from "./assets/academy-team.png";
 import browTreatmentImg from "./assets/brow-treatment.jpg";
 import browsImg from "./assets/brows-before-after.png";
-import founderImg from "./assets/about.jpg";
+import founderImg from "./assets/founder.jpg";
 import galleryThreeImg from "./assets/gallery-3.jpeg";
 import galleryFourImg from "./assets/gallery-4.png";
 import galleryFiveImg from "./assets/gallery-5.jpg";
