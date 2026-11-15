@@ -1070,6 +1070,78 @@ function HomePage({
   lang,
   t,
 }) {
+  const [selectedBrowTab, setSelectedBrowTab] = useState("microblading");
+
+  const browTechniques = {
+    microblading: {
+      name: "Microblading",
+      price: "₹14,999 (Includes Touch-up)",
+      tag: lang === "ta" ? "இயற்கை முடி இழை" : "Natural Hair Strokes",
+      headline:
+        lang === "ta"
+          ? "இயற்கையான மெல்லிய முடி இழை வடிவம்"
+          : "Fine hair-stroke brows that look like your own",
+      idealFor:
+        lang === "ta"
+          ? "மெல்லிய, இடைவெளி உள்ள புருவங்கள் கொண்ட சாதாரண மற்றும் உலர் சருமத்திற்கு உகந்தது."
+          : "Normal to dry skin, thin or gappy brows, and anyone who wants a soft, realistic finish with no makeup look.",
+      healedLook:
+        lang === "ta"
+          ? "இயற்கை முடி இழைகள் போன்ற அதிநுட்பமான தோற்றம்."
+          : "Ultra-fine, realistic hair strokes following your natural brow growth pattern.",
+      bestSkin: lang === "ta" ? "சாதாரண முதல் உலர் சருமம்" : "Normal to Dry Skin",
+      longevity: lang === "ta" ? "12 முதல் 18 மாதங்கள்" : "12 to 18 Months",
+      slug: "microblading",
+      image: ASSETS.testimonialBrowsNaturalImg,
+    },
+    "ombre-brows": {
+      name: "Ombre (Powder) Brows",
+      price: "₹16,999 (Includes Touch-up)",
+      tag: lang === "ta" ? "பவுடர் கிரேடியன்ட்" : "Soft Powder Gradient",
+      headline:
+        lang === "ta"
+          ? "மென்மையான பவுடர் மேக்கப் புருவ தோற்றம்"
+          : "Soft, brushed-on definition like brow makeup that never fades overnight",
+      idealFor:
+        lang === "ta"
+          ? "எண்ணெய் பசை அல்லது கலவை சருமம் உள்ளவர்களுக்கும், எப்போதும் மேக்கப் போன்ற தோற்றத்தை விரும்புபவர்களுக்கும் ஏற்றது."
+          : "Oily or combination skin, mature skin, and anyone who loves a defined, softly filled-in brow look.",
+      healedLook:
+        lang === "ta"
+          ? "முன்புறம் லேசாகவும் பின்பகுதி அடர்த்தியாகவும் இருக்கும் பவுடர் கிரேடியன்ட்."
+          : "Soft powdered gradient — lighter at the front, gently defined through the tail without harsh edges.",
+      bestSkin:
+        lang === "ta" ? "எண்ணெய் அல்லது கலவை சருமம்" : "Oily to Combination Skin",
+      longevity: lang === "ta" ? "18 முதல் 36 மாதங்கள்" : "18 to 36 Months",
+      slug: "ombre-brows",
+      image: ASSETS.testimonialBrowsResultImg,
+    },
+    "combination-brows": {
+      name: "Combination Brows",
+      price: "₹18,999 (Includes Touch-up)",
+      tag:
+        lang === "ta" ? "ஹைபிரிட் (ஸ்ட்ரோக் + நிழல்)" : "Hybrid (Strokes + Shading)",
+      headline:
+        lang === "ta"
+          ? "முடி இழை + பவுடர் நிழல் — இரண்டின் சிறந்த சங்கமம்"
+          : "Strokes for realism. Shading for depth. The best of both.",
+      idealFor:
+        lang === "ta"
+          ? "அனைத்து தோல் வகைகளுக்கும், குறைந்த புருவம் மற்றும் மெல்லிய வால் பகுதி உள்ளவர்களுக்கும் மிகவும் பிடித்தமான சிகிச்சை."
+          : "Almost every skin type, brows with gaps or thin tails, and anyone who wants realistic front strokes with full body definition.",
+      healedLook:
+        lang === "ta"
+          ? "முன்புறம் இயற்கை முடி இழைகளும் நடுவிலும் வால் பகுதியிலும் மென்மையான நிழலும்."
+          : "Delicate micro-strokes at the bulb with soft, airy powder shading through the arch and tail.",
+      bestSkin:
+        lang === "ta" ? "அனைத்து தோல் வகைகளும்" : "Most Skin Types (Universal)",
+      longevity: lang === "ta" ? "18 முதல் 24 மாதங்கள்" : "18 to 24 Months",
+      slug: "combination-brows",
+      image: ASSETS.browTreatmentImg,
+    },
+  };
+  const activeBrow =
+    browTechniques[selectedBrowTab] || browTechniques.microblading;
   const baSlide =
     activeBaTab === "Lips"
       ? {
@@ -1216,6 +1288,94 @@ function HomePage({
             >
               {t.philosophy.btnStory} <span>→</span>
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Clinic Founder & Master PMU Artist Spotlight */}
+      <section className="home-founder-section">
+        <div className="luxury-shell">
+          <div className="home-founder-grid">
+            <div className="founder-spotlight-photo">
+              <span className="founder-exp-pill">
+                ★ 8+ Years Master Specialist
+              </span>
+              <div className="founder-photo-frame" style={{ height: "460px" }}>
+                <img
+                  src={ASSETS.founderImg}
+                  alt="Durga - Founder of Browlicious PMU Clinic Chennai"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "center top",
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="founder-spotlight-content">
+              <span className="luxury-eyebrow">{t.homeFounder.eyebrow}</span>
+              <h2 className="luxury-title" style={{ marginBottom: "6px" }}>
+                {t.homeFounder.title}
+              </h2>
+              <span
+                style={{
+                  fontSize: "13px",
+                  fontWeight: "700",
+                  color: "var(--dusty-pink)",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.06em",
+                  display: "block",
+                  marginBottom: "16px",
+                }}
+              >
+                {t.homeFounder.role}
+              </span>
+
+              <div className="founder-quote-box">"{t.homeFounder.quote}"</div>
+
+              <div className="founder-stats-grid">
+                <div className="founder-stat-item">
+                  <b>{t.homeFounder.stat1}</b>
+                  <span>{t.homeFounder.stat1Label}</span>
+                </div>
+                <div className="founder-stat-item">
+                  <b>{t.homeFounder.stat2}</b>
+                  <span>{t.homeFounder.stat2Label}</span>
+                </div>
+                <div className="founder-stat-item">
+                  <b>{t.homeFounder.stat3}</b>
+                  <span>{t.homeFounder.stat3Label}</span>
+                </div>
+                <div className="founder-stat-item">
+                  <b>{t.homeFounder.stat4}</b>
+                  <span>{t.homeFounder.stat4Label}</span>
+                </div>
+              </div>
+
+              <ul className="founder-checklist">
+                <li>{t.homeFounder.cred1}</li>
+                <li>{t.homeFounder.cred2}</li>
+                <li>{t.homeFounder.cred3}</li>
+                <li>{t.homeFounder.cred4}</li>
+              </ul>
+
+              <div style={{ display: "flex", gap: "14px", flexWrap: "wrap" }}>
+                <button
+                  className="btn-luxury-gold"
+                  onClick={() => onBook("Consultation with Durga")}
+                >
+                  {t.homeFounder.btnBook}
+                </button>
+                <button
+                  className="btn-luxury-outline"
+                  onClick={() => navigate("/about")}
+                >
+                  {t.homeFounder.btnStory}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1438,6 +1598,212 @@ function HomePage({
             >
               {t.servicesPage.viewAllBtn} <span>→</span>
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive Brow Technique Decision Guide */}
+      <section className="home-brow-guide">
+        <div className="luxury-shell">
+          <div className="luxury-section-head">
+            <span className="luxury-eyebrow">{t.browGuide.eyebrow}</span>
+            <h2 className="luxury-title">{t.browGuide.title}</h2>
+            <p className="luxury-description">{t.browGuide.desc}</p>
+          </div>
+
+          <div className="brow-technique-tabs">
+            <button
+              className={`brow-tab-btn ${selectedBrowTab === "microblading" ? "active" : ""}`}
+              onClick={() => setSelectedBrowTab("microblading")}
+            >
+              {t.browGuide.tabMicro}
+            </button>
+            <button
+              className={`brow-tab-btn ${selectedBrowTab === "ombre-brows" ? "active" : ""}`}
+              onClick={() => setSelectedBrowTab("ombre-brows")}
+            >
+              {t.browGuide.tabOmbre}
+            </button>
+            <button
+              className={`brow-tab-btn ${selectedBrowTab === "combination-brows" ? "active" : ""}`}
+              onClick={() => setSelectedBrowTab("combination-brows")}
+            >
+              {t.browGuide.tabCombo}
+            </button>
+          </div>
+
+          <div className="brow-highlight-card">
+            <div className="brow-highlight-body">
+              <span className="brow-highlight-tag">{activeBrow.tag}</span>
+              <h3 className="brow-highlight-title">{activeBrow.name}</h3>
+              <p className="brow-highlight-headline">{activeBrow.headline}</p>
+
+              <div className="brow-specs-table">
+                <div className="brow-spec-cell">
+                  <span>{t.browGuide.skinLabel}</span>
+                  <b>{activeBrow.bestSkin}</b>
+                </div>
+                <div className="brow-spec-cell">
+                  <span>{t.browGuide.longevityLabel}</span>
+                  <b>{activeBrow.longevity}</b>
+                </div>
+                <div
+                  className="brow-spec-cell"
+                  style={{ gridColumn: "1 / -1" }}
+                >
+                  <span>{t.browGuide.idealLabel}</span>
+                  <b
+                    style={{
+                      fontWeight: "normal",
+                      fontSize: "13px",
+                      lineHeight: "1.5",
+                      color: "var(--text-body)",
+                    }}
+                  >
+                    {activeBrow.idealFor}
+                  </b>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  gap: "14px",
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                }}
+              >
+                <button
+                  className="btn-luxury-gold"
+                  onClick={() => onBook(activeBrow.name)}
+                >
+                  {t.browGuide.btnBookThis}
+                </button>
+                <button
+                  className="btn-luxury-outline"
+                  onClick={() => navigate(`/services/${activeBrow.slug}`)}
+                >
+                  {t.featuredServices.btnDetails}
+                </button>
+              </div>
+            </div>
+
+            <div className="brow-highlight-image">
+              <img src={activeBrow.image} alt={activeBrow.name} />
+              <div className="brow-price-overlay">
+                <span>{t.browGuide.priceLabel}</span>
+                <b>{activeBrow.price}</b>
+              </div>
+            </div>
+          </div>
+
+          {/* Full Side-by-Side Comparison Table */}
+          <div style={{ textAlign: "center", marginBottom: "16px" }}>
+            <h4
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: "20px",
+                color: "var(--deep-plum)",
+              }}
+            >
+              {t.browGuide.matrixTitle}
+            </h4>
+          </div>
+          <div className="luxury-table-wrap">
+            <table className="luxury-table">
+              <thead>
+                <tr>
+                  <th>{t.browGuide.colTechnique}</th>
+                  <th>{t.browGuide.colLook}</th>
+                  <th>{t.browGuide.colSkin}</th>
+                  <th>{t.browGuide.colLongevity}</th>
+                  <th>{lang === "ta" ? "முன்பதிவு" : "Action"}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {BROW_COMPARISON_TABLE.map((row) => (
+                  <tr key={row.slug}>
+                    <td>
+                      <b style={{ color: "var(--deep-plum)" }}>
+                        {row.technique}
+                      </b>
+                    </td>
+                    <td>{row.look}</td>
+                    <td>
+                      <span className="badge-pill-table">{row.bestSkin}</span>
+                    </td>
+                    <td>{row.longevity}</td>
+                    <td>
+                      <button
+                        className="btn-luxury-gold"
+                        style={{ padding: "7px 14px", fontSize: "11px" }}
+                        onClick={() => onBook(row.technique)}
+                      >
+                        {t.featuredServices.btnBook}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* 7-Step PMU Journey Section */}
+      <section className="home-journey-section">
+        <div className="luxury-shell">
+          <div className="luxury-section-head">
+            <span className="luxury-eyebrow">{t.homeJourney.eyebrow}</span>
+            <h2 className="luxury-title">{t.homeJourney.title}</h2>
+            <p className="luxury-description">{t.homeJourney.desc}</p>
+          </div>
+
+          <div className="journey-step-grid">
+            {CLIENT_JOURNEY_STEPS.map((s) => (
+              <div key={s.step} className="journey-step-card">
+                <span className="step-num-pill">{s.step}</span>
+                <h4>{s.title}</h4>
+                <p>{s.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ textAlign: "center" }}>
+            <button
+              className="btn-luxury-outline"
+              onClick={() => navigate("/aftercare")}
+            >
+              {t.homeJourney.btnJourneyFull}
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Clinical Hygiene & Peace of Mind Assurance Strip */}
+      <section className="home-safety-strip">
+        <div className="luxury-shell">
+          <div className="safety-grid-4col">
+            <div className="safety-card">
+              <div className="safety-icon-circle">🛡️</div>
+              <h4>{t.safetyStrip.badge1Title}</h4>
+              <p>{t.safetyStrip.badge1Desc}</p>
+            </div>
+            <div className="safety-card">
+              <div className="safety-icon-circle">🎨</div>
+              <h4>{t.safetyStrip.badge2Title}</h4>
+              <p>{t.safetyStrip.badge2Desc}</p>
+            </div>
+            <div className="safety-card">
+              <div className="safety-icon-circle">📐</div>
+              <h4>{t.safetyStrip.badge3Title}</h4>
+              <p>{t.safetyStrip.badge3Desc}</p>
+            </div>
+            <div className="safety-card">
+              <div className="safety-icon-circle">💎</div>
+              <h4>{t.safetyStrip.badge4Title}</h4>
+              <p>{t.safetyStrip.badge4Desc}</p>
+            </div>
           </div>
         </div>
       </section>
